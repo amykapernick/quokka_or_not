@@ -3,6 +3,17 @@
     <title>Quokka or Not</title>
   </head>
   <body>
-    {{ title }}
+    <h1>{{ title }}</h1>
+    <img src="{{ image }}" />
+    {% if outcome %}
+    <p>Yes, this is probably a quokka</p>
+    {% else %}
+    <p>Nope, doesn't look like there's a quokka in that picture</p>
+    {% endif %} {% for result in results.predictions %}
+    <dl>
+      <dt>{{ result.tagName }}</dt>
+      <dd>{{ (result.probability * 100) | round(2) }}%</dd>
+    </dl>
+    {% endfor %}
   </body>
 </html>
