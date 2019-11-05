@@ -14,6 +14,9 @@
       <dt>{{ result.tagName }}</dt>
       <dd>{{ (result.probability * 100) | round(2) }}%</dd>
     </dl>
-    {% endfor %}
+    {% endfor %} {% if outcome == false %}
+    <p>That's a bit sad though, so here's a picture of a quokka</p>
+    <img src="https://quokkas.amyskapers.tech/img/quokka_(1).jpg" />
+    {% endif %}
   </body>
 </html>
