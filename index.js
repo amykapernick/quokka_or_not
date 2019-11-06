@@ -14,7 +14,7 @@ const app = express(),
   projectId = process.env.PROJECT_ID;
 
 const predictor = new PredictionApi.PredictionAPIClient(key, endpoint),
-  testFile = `not_quokka_(2).jpg`;
+  testFile = `quokka_test.jpg`;
 
 const customVision = async () => {
   return (results = await predictor.classifyImage(
