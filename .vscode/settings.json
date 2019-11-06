@@ -1,5 +1,11 @@
 {
     "appService.showBuildDuringDeployPrompt": false,
     "appService.defaultWebAppToDeploy": "/subscriptions/8e039289-91f2-437c-bfc4-f9a113d65aa2/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/quokka-or-not",
-    "appService.deploySubpath": ""
+    "appService.deploySubpath": "",
+    "files.watcherExclude": {
+        "**/node_modules/*/**": false
+    },
+    "search.exclude": {
+        "**/node_modules": false
+    }
 }
