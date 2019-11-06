@@ -32,7 +32,6 @@ const env = nunjucks.configure(["views/"], {
 });
 
 app.get("/", async (req, res) => {
-  console.log(process.env);
   const results = await customVision();
 
   let outcome = [];
@@ -55,7 +54,8 @@ app.get("/", async (req, res) => {
     title: "Quokka or Not",
     results: results,
     image: testFile,
-    outcome: outcome
+    outcome: outcome,
+    env: process.env
   });
 });
 

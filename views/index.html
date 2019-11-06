@@ -3,6 +3,7 @@
     <title>Quokka or Not</title>
   </head>
   <body>
+    {{ env || dump }}
     <h1>{{ title }}</h1>
     <img src="{{ image }}" />
     {% if outcome %}
