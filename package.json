@@ -4,7 +4,8 @@
   "description": "Is this a quokka or not?",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "build": "express index.js"
   },
   "repository": {
     "type": "git",
