@@ -56,11 +56,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static("img"));
 
-const env = nunjucks.configure(["views/"], {
-  autoescape: true,
-  express: app
-});
-
 app.get("/", async (req, res) => {
   const results = await customVision();
 
@@ -94,6 +89,42 @@ app.get("/twilio", (req, res) => {
 });
 
 app.post("/sms", async (req, res) => {
+  const twiml = new MessagingResponse();
+
+  let request = req.body.Body,
+    image = req.body.MediaUrl0,
+    message = twiml.message();
+
+  let results = await customVision(image),
+    outcome = quokkaTest(results),
+    quokka = true;
+
+  console.log("test");
+
+  if (outcome[0] > outcome[1]) {
+    quokka = false;
+    message.body(
+      `Sorry, doesn't look like that's a quokka 😢
+      \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
+        outcome[0] * 100
+      ).toFixed(2)}%
+      \nThat's pretty sad though, so here's a quokka`
+    );
+    message.media("https://quokkas.amyskapers.tech/img/quokka_(1).jpg");
+  } else {
+    message.body(
+      `Yep, that looks like a quokka!
+        \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
+        outcome[0] * 100
+      ).toFixed(2)}%`
+    );
+  }
+
+  res.writeHead(200, { "Content-Type": "text/xml" });
+  res.end(message.toString());
+});
+
+app.post("/facebook", async (req, res) => {
   const twiml = new MessagingResponse();
 
   let request = req.body.Body,
