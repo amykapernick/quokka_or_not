@@ -32,6 +32,7 @@ const env = nunjucks.configure(["views/"], {
 });
 
 app.get("/", async (req, res) => {
+  console.log(process.env);
   const results = await customVision();
 
   let outcome = [];
