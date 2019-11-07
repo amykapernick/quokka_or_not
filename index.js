@@ -58,22 +58,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("img"));
 
 app.get("/", async (req, res) => {
-  // const results = await customVision();
+  const results = await customVision();
 
-  // let outcome = quokkaTest(results);
+  let outcome = quokkaTest(results);
 
-  // if (outcome[0] > outcome[1]) {
-  //   outcome = false;
-  // } else {
-  //   outcome = true;
-  // }
+  if (outcome[0] > outcome[1]) {
+    outcome = false;
+  } else {
+    outcome = true;
+  }
 
   res.render("index.html", {
     title: "Quokka or Not",
-    deets: [accountSid, authToken]
-    //   // results: results,
-    //   // image: testFile,
-    //   // outcome: outcome
+    deets: [accountSid, authToken],
+    results: results,
+    image: testFile,
+    outcome: outcome
   });
 });
 
