@@ -12,7 +12,9 @@ const app = express(),
   publishIterationName = process.env.ITERATION,
   projectId = process.env.PROJECT_ID,
   accountSid = process.env.ACCOUNT_SID,
-  authToken = process.env.AUTH_TOKEN;
+  authToken = process.env.AUTH_TOKEN,
+  client = require("twilio")(accountSid, authToken),
+  MessagingResponse = require("twilio").twiml.MessagingResponse;
 
 const predictor = new PredictionApi.PredictionAPIClient(key, endpoint),
   testFile = `quokka_test.jpg`;
