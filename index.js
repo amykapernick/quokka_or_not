@@ -14,6 +14,11 @@ const app = express(),
   accountSid = process.env.ACCOUNT_SID,
   authToken = process.env.AUTH_TOKEN;
 
+const env = nunjucks.configure(["views/"], {
+  autoescape: true,
+  express: app
+});
+
 const predictor = new PredictionApi.PredictionAPIClient(key, endpoint),
   testFile = `quokka_test.jpg`;
 
@@ -65,14 +70,12 @@ app.get("/", async (req, res) => {
   //   outcome = true;
   // }
 
-  res.write("<h1>Quokka on demand</h1>");
-
-  // res.render("index.html", {
-  //   title: "Quokka or Not"
-  //   // results: results,
-  //   // image: testFile,
-  //   // outcome: outcome
-  // });
+  res.render("index.html", {
+    title: "Quokka or Not"
+    //   // results: results,
+    //   // image: testFile,
+    //   // outcome: outcome
+  });
 });
 
 app.listen(process.env.PORT || 3000, () => {
