@@ -1,74 +1,76 @@
 require("dotenv").config();
 
 const express = require("express"),
-  nunjucks = require("nunjucks"),
-  bodyParser = require("body-parser"),
-  fs = require("fs"),
+  // nunjucks = require("nunjucks"),
+  // bodyParser = require("body-parser"),
+  // fs = require("fs"),
   PredictionApi = require("@azure/cognitiveservices-customvision-prediction");
 
-const app = express(),
-  key = process.env.API_KEY,
-  endpoint = "https://southcentralus.api.cognitive.microsoft.com/",
-  publishIterationName = process.env.ITERATION,
-  projectId = process.env.PROJECT_ID;
+const app = express();
+// key = process.env.API_KEY,
+// endpoint = "https://southcentralus.api.cognitive.microsoft.com/",
+// publishIterationName = process.env.ITERATION,
+// projectId = process.env.PROJECT_ID;
 
-const predictor = new PredictionApi.PredictionAPIClient(key, endpoint),
-  testFile = `quokka_test.jpg`;
+// const predictor = new PredictionApi.PredictionAPIClient(key, endpoint),
+//   testFile = `quokka_test.jpg`;
 
-const customVision = async image => {
-  console.log(image);
-  if (image) {
-    return (results = await predictor.classifyImageUrl(
-      projectId,
-      publishIterationName,
-      { url: image }
-    ));
-  } else {
-    return (results = await predictor.classifyImage(
-      projectId,
-      publishIterationName,
-      fs.readFileSync(`./img/${testFile}`)
-    ));
-  }
-};
+// const customVision = async image => {
+//   console.log(image);
+//   if (image) {
+//     return (results = await predictor.classifyImageUrl(
+//       projectId,
+//       publishIterationName,
+//       { url: image }
+//     ));
+//   } else {
+//     return (results = await predictor.classifyImage(
+//       projectId,
+//       publishIterationName,
+//       fs.readFileSync(`./img/${testFile}`)
+//     ));
+//   }
+// };
 
-const quokkaTest = res => {
-  let outcome = [];
+// const quokkaTest = res => {
+//   let outcome = [];
 
-  results.predictions.forEach(tag => {
-    if (tag.tagName == "Negative") {
-      outcome[0] = tag.probability;
-    } else if (tag.tagName == "Quokka") {
-      outcome[1] = tag.probability;
-    }
-  });
+//   results.predictions.forEach(tag => {
+//     if (tag.tagName == "Negative") {
+//       outcome[0] = tag.probability;
+//     } else if (tag.tagName == "Quokka") {
+//       outcome[1] = tag.probability;
+//     }
+//   });
 
-  return outcome;
-};
+//   return outcome;
+// };
 
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static("img"));
 
 app.get("/", async (req, res) => {
-  const results = await customVision();
+  // const results = await customVision();
 
-  console.log({ accountSid, authToken });
+  // console.log({ accountSid, authToken });
 
-  let outcome = quokkaTest(results);
+  // let outcome = quokkaTest(results);
 
-  if (outcome[0] > outcome[1]) {
-    outcome = false;
-  } else {
-    outcome = true;
-  }
+  // if (outcome[0] > outcome[1]) {
+  //   outcome = false;
+  // } else {
+  //   outcome = true;
+  // }
 
-  res.render("index.html", {
-    title: "Quokka or Not",
-    results: results,
-    image: testFile,
-    outcome: outcome
-  });
+  res.write("<h1>Quokka on demand</h1>");
+
+  // res.render("index.html", {
+  //   title: "Quokka or Not"
+  //   // results: results,
+  //   // image: testFile,
+  //   // outcome: outcome
+  // });
 });
 
 app.listen(process.env.PORT || 3000, () => {
