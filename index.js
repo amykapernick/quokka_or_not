@@ -60,8 +60,6 @@ app.use(express.static("img"));
 app.get("/", async (req, res) => {
   // const results = await customVision();
 
-  console.log({ accountSid, authToken });
-
   // let outcome = quokkaTest(results);
 
   // if (outcome[0] > outcome[1]) {
@@ -71,7 +69,8 @@ app.get("/", async (req, res) => {
   // }
 
   res.render("index.html", {
-    title: "Quokka or Not"
+    title: "Quokka or Not",
+    deets: [accountSid, authToken]
     //   // results: results,
     //   // image: testFile,
     //   // outcome: outcome
