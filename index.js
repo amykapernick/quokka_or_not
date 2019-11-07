@@ -76,89 +76,89 @@ app.get("/", async (req, res) => {
   });
 });
 
-app.get("/twilio", (req, res) => {
-  res.write("<h1>Quokka on demand</h1>");
+// app.get("/twilio", (req, res) => {
+//   res.write("<h1>Quokka on demand</h1>");
 
-  client.messages
-    .create({
-      body: "This is the ship that made the Kessel Run in fourteen parsecs?",
-      from: "+61488845130",
-      to: "+61438984242"
-    })
-    .then(message => console.log(message.sid));
-});
+//   client.messages
+//     .create({
+//       body: "This is the ship that made the Kessel Run in fourteen parsecs?",
+//       from: "+61488845130",
+//       to: "+61438984242"
+//     })
+//     .then(message => console.log(message.sid));
+// });
 
-app.post("/sms", async (req, res) => {
-  const twiml = new MessagingResponse();
+// app.post("/sms", async (req, res) => {
+//   const twiml = new MessagingResponse();
 
-  let request = req.body.Body,
-    image = req.body.MediaUrl0,
-    message = twiml.message();
+//   let request = req.body.Body,
+//     image = req.body.MediaUrl0,
+//     message = twiml.message();
 
-  let results = await customVision(image),
-    outcome = quokkaTest(results),
-    quokka = true;
+//   let results = await customVision(image),
+//     outcome = quokkaTest(results),
+//     quokka = true;
 
-  console.log("test");
+//   console.log("test");
 
-  if (outcome[0] > outcome[1]) {
-    quokka = false;
-    message.body(
-      `Sorry, doesn't look like that's a quokka 😢
-      \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
-        outcome[0] * 100
-      ).toFixed(2)}%
-      \nThat's pretty sad though, so here's a quokka`
-    );
-    message.media("https://quokkas.amyskapers.tech/img/quokka_(1).jpg");
-  } else {
-    message.body(
-      `Yep, that looks like a quokka!
-        \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
-        outcome[0] * 100
-      ).toFixed(2)}%`
-    );
-  }
+//   if (outcome[0] > outcome[1]) {
+//     quokka = false;
+//     message.body(
+//       `Sorry, doesn't look like that's a quokka 😢
+//       \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
+//         outcome[0] * 100
+//       ).toFixed(2)}%
+//       \nThat's pretty sad though, so here's a quokka`
+//     );
+//     message.media("https://quokkas.amyskapers.tech/img/quokka_(1).jpg");
+//   } else {
+//     message.body(
+//       `Yep, that looks like a quokka!
+//         \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
+//         outcome[0] * 100
+//       ).toFixed(2)}%`
+//     );
+//   }
 
-  res.writeHead(200, { "Content-Type": "text/xml" });
-  res.end(message.toString());
-});
+//   res.writeHead(200, { "Content-Type": "text/xml" });
+//   res.end(message.toString());
+// });
 
-app.post("/facebook", async (req, res) => {
-  const twiml = new MessagingResponse();
+// app.post("/facebook", async (req, res) => {
+//   const twiml = new MessagingResponse();
 
-  let request = req.body.Body,
-    image = req.body.MediaUrl0,
-    message = twiml.message();
+//   let request = req.body.Body,
+//     image = req.body.MediaUrl0,
+//     message = twiml.message();
 
-  let results = await customVision(image),
-    outcome = quokkaTest(results),
-    quokka = true;
+//   let results = await customVision(image),
+//     outcome = quokkaTest(results),
+//     quokka = true;
 
-  console.log("test");
+//   console.log("test");
 
-  if (outcome[0] > outcome[1]) {
-    quokka = false;
-    message.body(
-      `Sorry, doesn't look like that's a quokka 😢
-      \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
-        outcome[0] * 100
-      ).toFixed(2)}%
-      \nThat's pretty sad though, so here's a quokka`
-    );
-    message.media("https://quokkas.amyskapers.tech/img/quokka_(1).jpg");
-  } else {
-    message.body(
-      `Yep, that looks like a quokka!
-        \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
-        outcome[0] * 100
-      ).toFixed(2)}%`
-    );
-  }
+//   if (outcome[0] > outcome[1]) {
+//     quokka = false;
+//     message.body(
+//       `Sorry, doesn't look like that's a quokka 😢
+//       \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
+//         outcome[0] * 100
+//       ).toFixed(2)}%
+//       \nThat's pretty sad though, so here's a quokka`
+//     );
+//     message.media("https://quokkas.amyskapers.tech/img/quokka_(1).jpg");
+//   } else {
+//     message.body(
+//       `Yep, that looks like a quokka!
+//         \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
+//         outcome[0] * 100
+//       ).toFixed(2)}%`
+//     );
+//   }
 
-  res.writeHead(200, { "Content-Type": "text/xml" });
-  res.end(message.toString());
-});
+//   res.writeHead(200, { "Content-Type": "text/xml" });
+//   res.end(message.toString());
+// });
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("Quokka or Not listening on port 3000");
