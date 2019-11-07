@@ -14,9 +14,9 @@ const app = express(),
   publishIterationName = process.env.ITERATION,
   projectId = process.env.PROJECT_ID,
   accountSid = process.env.ACCOUNT_SID,
-  authToken = process.env.AUTH_TOKEN,
-  client = require("twilio")(accountSid, authToken),
-  MessagingResponse = require("twilio").twiml.MessagingResponse;
+  authToken = process.env.AUTH_TOKEN;
+// client = require("twilio")(accountSid, authToken),
+// MessagingResponse = require("twilio").twiml.MessagingResponse;
 
 const predictor = new PredictionApi.PredictionAPIClient(key, endpoint),
   testFile = `quokka_test.jpg`;
@@ -59,6 +59,8 @@ app.use(express.static("img"));
 app.get("/", async (req, res) => {
   const results = await customVision();
 
+  console.log({ accountSid, authToken });
+
   let outcome = quokkaTest(results);
 
   if (outcome[0] > outcome[1]) {
@@ -71,8 +73,7 @@ app.get("/", async (req, res) => {
     title: "Quokka or Not",
     results: results,
     image: testFile,
-    outcome: outcome,
-    env: process.env
+    outcome: outcome
   });
 });
 
