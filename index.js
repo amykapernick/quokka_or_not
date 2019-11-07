@@ -14,11 +14,6 @@ const app = express(),
   accountSid = process.env.ACCOUNT_SID,
   authToken = process.env.AUTH_TOKEN;
 
-const env = nunjucks.configure(["views/"], {
-  autoescape: true,
-  express: app
-});
-
 const predictor = new PredictionApi.PredictionAPIClient(key, endpoint),
   testFile = `quokka_test.jpg`;
 
@@ -52,6 +47,11 @@ const quokkaTest = res => {
 
   return outcome;
 };
+
+nunjucks.configure(["views/"], {
+  autoescape: true,
+  express: app
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
