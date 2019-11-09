@@ -150,7 +150,8 @@ app.post("/facebook", async (req, res) => {
   if (image) {
     let results = await customVision(image),
       outcome = quokkaTest(results),
-      quokka = true;
+      quokka = true,
+      response = quokkaReply(outcome);
 
     if (outcome[0] > outcome[1]) {
       quokka = false;
