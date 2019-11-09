@@ -147,9 +147,9 @@ app.post("/facebook", async (req, res) => {
       \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
         outcome[0] * 100
       ).toFixed(2)}%
-      \nThat's pretty sad though, so here's a quokka`
+      \nThat's pretty sad though, so here's a quokka
+      \nhttps://quokkas.amyskapers.tech/img/quokka_(1).jpg`
     );
-    message.media("https://quokkas.amyskapers.tech/img/quokka_(1).jpg");
   } else {
     message.body(
       `Yep, that looks like a quokka!
