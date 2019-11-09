@@ -19,6 +19,22 @@ const app = express(),
 const predictor = new PredictionApi.PredictionAPIClient(key, endpoint),
   testFile = `quokka_test.jpg`;
 
+const quokkaReply = outcome => {
+  let message = "",
+    quokka = `${(outcome[1] * 100).toFixed(2)}%`,
+    notQuokka = `${(outcome[0] * 100).toFixed(2)}%`;
+
+  if (outcome[0] > outcome[1]) {
+    message = `Sorry, doesn't look like that's a quokka 😢
+    \nThat's pretty sad though, so here's a quokka`;
+  } else {
+    message = `Yep, that looks like a quokka!
+      \nQuokka: ${quokka}, Not Quokka: ${notQuokka}`;
+  }
+
+  return message;
+};
+
 const customVision = async image => {
   console.log(image);
   if (image) {
@@ -72,23 +88,10 @@ app.get("/", async (req, res) => {
 
   res.render("index.html", {
     title: "Quokka or Not",
-    deets: [accountSid, authToken],
     results: results,
     image: testFile,
     outcome: outcome
   });
-});
-
-app.get("/twilio", (req, res) => {
-  res.write("<h1>Quokka on demand</h1>");
-
-  client.messages
-    .create({
-      body: "This is the ship that made the Kessel Run in fourteen parsecs?",
-      from: "+61488845130",
-      to: "+61438984242"
-    })
-    .then(message => console.log(message.sid));
 });
 
 app.post("/sms", async (req, res) => {
@@ -100,27 +103,15 @@ app.post("/sms", async (req, res) => {
 
   let results = await customVision(image),
     outcome = quokkaTest(results),
-    quokka = true;
-
-  console.log("test");
+    quokka = true,
+    response = quokkaReply(outcome);
 
   if (outcome[0] > outcome[1]) {
     quokka = false;
-    message.body(
-      `Sorry, doesn't look like that's a quokka 😢
-      \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
-        outcome[0] * 100
-      ).toFixed(2)}%
-      \nThat's pretty sad though, so here's a quokka`
-    );
+    message.body(response);
     message.media("https://quokkas.amyskapers.tech/img/quokka_(1).jpg");
   } else {
-    message.body(
-      `Yep, that looks like a quokka!
-        \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
-        outcome[0] * 100
-      ).toFixed(2)}%`
-    );
+    message.body(response);
   }
 
   res.writeHead(200, { "Content-Type": "text/xml" });
@@ -138,25 +129,12 @@ app.post("/facebook", async (req, res) => {
     outcome = quokkaTest(results),
     quokka = true;
 
-  console.log("test");
-
   if (outcome[0] > outcome[1]) {
     quokka = false;
-    message.body(
-      `Sorry, doesn't look like that's a quokka 😢
-      \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
-        outcome[0] * 100
-      ).toFixed(2)}%
-      \nThat's pretty sad though, so here's a quokka
-      \nhttps://quokkas.amyskapers.tech/img/quokka_(1).jpg`
-    );
+    message.body(`${response}
+      \nhttps://quokkas.amyskapers.tech/img/quokka_(1).jpg`);
   } else {
-    message.body(
-      `Yep, that looks like a quokka!
-        \nQuokka: ${(outcome[1] * 100).toFixed(2)}%, Not Quokka: ${(
-        outcome[0] * 100
-      ).toFixed(2)}%`
-    );
+    message.body(response);
   }
 
   res.writeHead(200, { "Content-Type": "text/xml" });
