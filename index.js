@@ -101,17 +101,39 @@ app.post("/sms", async (req, res) => {
     image = req.body.MediaUrl0,
     message = twiml.message();
 
-  let results = await customVision(image),
-    outcome = quokkaTest(results),
-    quokka = true,
-    response = quokkaReply(outcome);
+  if (image) {
+    let results = await customVision(image),
+      outcome = quokkaTest(results),
+      quokka = true,
+      response = quokkaReply(outcome);
 
-  if (outcome[0] > outcome[1]) {
-    quokka = false;
-    message.body(response);
-    message.media("https://quokkas.amyskapers.tech/img/quokka_(1).jpg");
+    if (outcome[0] > outcome[1]) {
+      quokka = false;
+      message.body(response);
+      message.media("https://quokkas.amyskapers.tech/img/quokka_(1).jpg");
+    } else {
+      message.body(response);
+    }
   } else {
-    message.body(response);
+    let photo = Math.floor(Math.random() * 12),
+      type = "jpg";
+
+    if (RegExp(/\d+/).test(request) && request.match(/(\d+)/)[0] < 12) {
+      photo = request.match(/(\d+)/)[0];
+    }
+
+    if (RegExp("quokka", "i").test(request)) {
+      message.body(`This is a quokka`);
+      message.media(
+        `https://quokkas.amyskapers.tech/img/quokka_(${photo}).${type}`
+      );
+    } else {
+      message.body(
+        `Welcome to Quokka bot! I can do a bunch of different things that have to do with quokkas.
+      \nNeed a picture of a quokka? Just ask me
+      \nNot sure if you've seen a quokka? Send me a picture and I'll tell you if there's a quokka in it`
+      );
+    }
   }
 
   res.writeHead(200, { "Content-Type": "text/xml" });
