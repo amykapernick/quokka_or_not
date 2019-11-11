@@ -1,22 +1,43 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Quokka or Not</title>
-  </head>
-  <body>
-    <h1>{{ title }}</h1>
-    <img src="{{ image }}" />
-    {% if outcome %}
-    <p>Yes, this is probably a quokka</p>
-    {% else %}
-    <p>Nope, doesn't look like there's a quokka in that picture</p>
-    {% endif %} {% for result in results.predictions %}
-    <dl>
-      <dt>{{ result.tagName }}</dt>
-      <dd>{{ (result.probability * 100) | round(2) }}%</dd>
-    </dl>
-    {% endfor %} {% if outcome == false %}
-    <p>That's a bit sad though, so here's a picture of a quokka</p>
-    <img src="https://quokkas.amyskapers.tech/img/quokka_(1).jpg" />
-    {% endif %}
-  </body>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+		<title>{{ title }}</title>
+		<base href="/" />
+		<link rel="stylesheet" type="text/css" href="./style.css" />
+		<link rel="shortcut icon" href="/img/quokka_(0).jpg" />
+	</head>
+	<body>
+		<h1>{{ title }}</h1>
+		<p>This project was built using:</p>
+		<ul>
+			<li><a href="https://www.twilio.com/" target="_blank">Twilio</a></li>
+			<li><a href="https://azure.microsoft.com" target="_blank">Azure</a></li>
+			<li><a href="https://www.customvision.ai" target="_blank">Custom Vision</a></li>
+		</ul>
+		<p>Using Quokkabot, you can do a a couple of quokka related things:</p>
+		<ul>
+			<li>Detect if there is a quokka in an image</li>
+			<li>Receive an image of a quokka</li>
+		</ul>
+		<p>This functionality is available on a range of different platforms, including:</p>
+		<ul>
+			<li><a href="/whatsapp" target="_blank">WhatsApp</a></li>
+			<li><a href="/facebook" target="_blank">Facebook Messenger</a></li>
+			<li><a href="/email" target="_blank">Email</a></li>
+			<li>Web</li>
+		</ul>
+
+		<h2>Talk to Quokkabot on the Web</h2>
+		<form>
+			<label for="imageUrl">
+				Image Url
+				<input type="url" id="imageUrl" />
+			</label>
+			<button type="button" onclick="detectQuokka()">Detect Quokka</button>
+		</form>
+		<script type="text/javascript" src="./main.js"></script>
+	</body>
 </html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+		<title>{{ title }}</title>
+		<link rel="stylesheet" href="./style.css" />
+		<link rel="shortcut icon" href="/img/quokka_(0).jpg" />
+	</head>
+	<body>
+		<h1>{{ title }}</h1>
+		<img src="{{ image }}" />
+		{% if outcome %}
+		<p>Yes, this is probably a quokka</p>
+		{% else %}
+		<p>Nope, doesn't look like there's a quokka in that picture</p>
+		{% endif %} {% for result in results.predictions %}
+		<dl>
+			<dt>{{ result.tagName }}</dt>
+			<dd>{{ (result.probability * 100) | round(2) }}%</dd>
+		</dl>
+		{% endfor %} {% if outcome == false %}
+		<p>That's a bit sad though, so here's a picture of a quokka</p>
+		<img src="https://quokkas.amyskapers.tech/img/quokka_(1).jpg" />
+		{% endif %}
+		<a href="/">Try Another Image</a>
+	</body>
+</html>
