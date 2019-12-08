@@ -27,6 +27,7 @@ const quokkaReply = outcome => {
 
 	if (outcome[0] > outcome[1]) {
 		message = `Sorry, doesn't look like that's a quokka 😢
+		\nQuokka: ${quokka}, Not Quokka: ${notQuokka}
     \nThat's pretty sad though, so here's a quokka`
 	} else {
 		message = `Yep, that looks like a quokka!
