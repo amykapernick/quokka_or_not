@@ -14,7 +14,8 @@ const app = express(),
 	accountSid = process.env.ACCOUNT_SID,
 	authToken = process.env.AUTH_TOKEN,
 	client = require('twilio')(accountSid, authToken),
-	MessagingResponse = require('twilio').twiml.MessagingResponse
+	MessagingResponse = require('twilio').twiml.MessagingResponse,
+	service = client.sync.services(process.env.SYNC_SID)
 
 const predictor = new PredictionApi.PredictionAPIClient(key, endpoint),
 	testFile = `quokka_test.jpg`
@@ -124,11 +125,12 @@ app.post('/sms', async (req, res) => {
 		let photo = Math.floor(Math.random() * 12),
 			type = 'jpg'
 
-		if (RegExp(/\d+/).test(request) && request.match(/(\d+)/)[0] < 12) {
-			photo = request.match(/(\d+)/)[0]
-		}
-
 		if (RegExp('quokka', 'i').test(request)) {
+			await service.documents('quokkabot').update({
+				data: {
+					url: `https://quokkas.amyskapers.tech/img/quokka_(${photo}).${type}`,
+				},
+			})
 			message.body(`This is a quokka`)
 			message.media(`https://quokkas.amyskapers.tech/img/quokka_(${photo}).${type}`)
 		} else {
