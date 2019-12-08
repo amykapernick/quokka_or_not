@@ -106,7 +106,10 @@ app.post('/sms', async (req, res) => {
 
 	let request = req.body.Body,
 		image = req.body.MediaUrl0,
-		message = twiml.message()
+		message = twiml.message(),
+		photo = Math.floor(Math.random() * 12),
+		type = 'jpg',
+		newQuokka = false
 
 	if (image) {
 		let results = await customVision(image),
@@ -114,25 +117,21 @@ app.post('/sms', async (req, res) => {
 			quokka = true,
 			response = quokkaReply(outcome)
 
+		newQuokka = true
+
 		if (outcome[0] > outcome[1]) {
 			quokka = false
 			message.body(response)
-			message.media('https://quokkas.amyskapers.tech/img/quokka_(1).jpg')
+			message.media(`https://quokkas.amyskapers.tech/img/quokka_(${photo}).${type}`)
 		} else {
 			message.body(response)
 		}
 	} else {
-		let photo = Math.floor(Math.random() * 12),
-			type = 'jpg'
-
 		if (RegExp('quokka', 'i').test(request)) {
-			await service.documents('quokkabot').update({
-				data: {
-					url: `https://quokkas.amyskapers.tech/img/quokka_(${photo}).${type}`,
-				},
-			})
 			message.body(`This is a quokka`)
 			message.media(`https://quokkas.amyskapers.tech/img/quokka_(${photo}).${type}`)
+
+			newQuokka = true
 		} else {
 			message.body(
 				`Welcome to Quokka bot! I can do a bunch of different things that have to do with quokkas.
@@ -140,6 +139,14 @@ app.post('/sms', async (req, res) => {
       \nNot sure if you've seen a quokka? Send me a picture and I'll tell you if there's a quokka in it`
 			)
 		}
+	}
+
+	if (newQuokka) {
+		await service.documents('quokkabot').update({
+			data: {
+				url: `https://quokkas.amyskapers.tech/img/quokka_(${photo}).${type}`,
+			},
+		})
 	}
 
 	res.writeHead(200, { 'Content-Type': 'text/xml' })
