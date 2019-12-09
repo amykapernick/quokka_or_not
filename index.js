@@ -120,6 +120,15 @@ app.post('/sms', async (req, res) => {
 
 		newQuokka = true
 
+		let quokkaList;
+		try {
+			quokkaList = await service.syncLists.create({ uniqueName: 'quokkaTests' });
+		} catch(e) {
+			quokkaList = await service.syncLists('quokkaTests');
+		}
+
+		await quokkaList.syncListItems.create({ data: { url: image }});
+
 		if (outcome[0] > outcome[1]) {
 			quokka = false
 			message.body(response)
