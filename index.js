@@ -120,14 +120,19 @@ app.post('/sms', async (req, res) => {
 
 		newQuokka = true
 
-		let quokkaList;
 		try {
-			quokkaList = await service.syncLists.create({ uniqueName: 'quokkaTests' });
+			service.syncLists.create({ uniqueName: 'quokkaTests' });
 		} catch(e) {
-			quokkaList = await service.syncLists('quokkaTests');
 		}
 
-		await quokkaList.syncListItems.create({ data: { url: image }});
+		const	quokkaList = service.syncLists('quokkaTests');
+		try {
+			const quokka = `${(outcome[1] * 100).toFixed(2)}%`;
+			const notQuokka = `${(outcome[0] * 100).toFixed(2)}%`;
+			await quokkaList.syncListItems.create({ data: { url: image, quokka: quokka, notQuokka: notQuokka }});
+		} catch(e) {
+			console.error(e);
+		}
 
 		if (outcome[0] > outcome[1]) {
 			quokka = false
