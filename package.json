@@ -4,8 +4,8 @@
   "description": "Is this a quokka or not?",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon -e js index.js"
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
   },
   "repository": {
     "type": "git",
