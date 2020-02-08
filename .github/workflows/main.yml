@@ -17,8 +17,7 @@ jobs:
     - name: 'run npm'
       run: |
         npm install
-        npm run build --if-present
-        npm run test --if-present
+        npm start
     - uses: Azure/functions-action@v1
       id: fa
       with:
