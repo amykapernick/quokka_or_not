@@ -3,7 +3,7 @@ require('dotenv').config()
 const quokkaTest = require('../quokka-test'),
 customVision = quokkaTest.customVision
 
-const whatsappReply = (results) => {
+const whatsappReply = (outcome) => {
     let message,
     quokka = `${(outcome[1] * 100).toFixed(2)}%`,
         notQuokka = `${(outcome[0] * 100).toFixed(2)}%`
