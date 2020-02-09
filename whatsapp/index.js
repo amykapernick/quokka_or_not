@@ -1,5 +1,8 @@
 require('dotenv').config()
 
+const quokkaTest = require('../quokka-test'),
+customVision = quokkaTest.customVision
+
 module.exports = async function (context) {
     const res = context.res,
     qs = require('querystring'),
@@ -8,12 +11,14 @@ module.exports = async function (context) {
     message = twiml.message(),
     body = qs.parse(context.req.body),
     image = body.NumMedia && body.MediaUrl0
+
+    customVision(image)
     
     message.body(
-        `Welcome to Quokkabot!\n
-        ${image}`
+        `Welcome to Quokkabot!`
     )
 
     res.set('content-type', 'text/xml')
 	res.end(message.toString())
 };
+
