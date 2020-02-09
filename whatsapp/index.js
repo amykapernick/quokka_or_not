@@ -16,7 +16,7 @@ module.exports = async function (context) {
     
     message.body(
         `Welcome to Quokkabot!\n
-        results.join(',')
+        ${results.join(',')}
         `
     )
 

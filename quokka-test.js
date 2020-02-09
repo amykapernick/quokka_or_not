@@ -12,8 +12,6 @@ const customVision = async (image) => {
 	const results = await predictor.classifyImageUrl(projectId, publishIterationName, { url: image }),
 	outcome = quokkaTest(results)
 
-	context.log(outcome)
-
 	return outcome
 }
 
