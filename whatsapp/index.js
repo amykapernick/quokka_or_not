@@ -12,7 +12,9 @@ module.exports = async function (context) {
     body = qs.parse(context.req.body),
     image = body.NumMedia && body.MediaUrl0
 
-    context.log(customVision(image))
+    const results = await customVision(image)
+
+    context.log(results)
     
     message.body(
         `Welcome to Quokkabot!`
