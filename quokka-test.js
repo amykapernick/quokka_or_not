@@ -23,6 +23,7 @@ const quokkaTest = (results) => {
 			outcome[0] = tag.probability
 		} else if (tag.tagName == 'Quokka') {
 			outcome[1] = tag.probability
+		}
 	})
 
 	return outcome
