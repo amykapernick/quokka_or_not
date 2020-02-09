@@ -1,18 +1,21 @@
 require('dotenv').config()
 
+const qs = require('querystring'),
+MessagingResponse = require('twilio').twiml.MessagingResponse
+
 module.exports = async function (context) {
     const res = context.res,
-    bodyParser = require('body-parser'),
-    MessagingResponse = require('twilio').twiml.MessagingResponse,
     twiml = new MessagingResponse(),
     message = twiml.message(),
-    image = context.req.body
+    body = qs.parse(context.req.body)
+    // image = body.MediaUrl0
 
-    context.log(image.match(/MediaUrl0=((\w|\d|\%|-|\.)+)&/))
+    context.log(body)
+    context.log(body.MediaUrl0)
     
     message.body(
         `Welcome to Quokkabot!\n
-        ${image.match(/MediaUrl0=((\w|\d|\%|-|\.)+)&/)}`
+        ${body}`
     )
 
     res.set('content-type', 'text/xml')
