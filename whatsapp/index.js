@@ -13,11 +13,11 @@ module.exports = async function (context) {
     image = body.NumMedia && body.MediaUrl0
 
     const results = await customVision(image)
-
-    context.log(results)
     
     message.body(
-        `Welcome to Quokkabot!`
+        `Welcome to Quokkabot!\n
+        results.join(',')
+        `
     )
 
     res.set('content-type', 'text/xml')
