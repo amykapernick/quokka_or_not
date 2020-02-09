@@ -6,7 +6,7 @@ quokkaBot = require('../quokkabot')
 
 const whatsappReply = (outcome) => {
     let message,
-    photo = photo = Math.floor(Math.random() * 12),
+    photo = Math.floor(Math.random() * 12),
     quokka = `${(outcome[1] * 100).toFixed(2)}%`,
         notQuokka = `${(outcome[0] * 100).toFixed(2)}%`
         
