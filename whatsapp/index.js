@@ -1,10 +1,13 @@
 require('dotenv').config()
 
-module.exports = async function (context) {
+module.exports = async function (context, req) {
     const res = context.res,
     MessagingResponse = require('twilio').twiml.MessagingResponse,
-    twiml = new MessagingResponse()
-    message = twiml.message()
+    twiml = new MessagingResponse(),
+    message = twiml.message(),
+    image = req.body.MediaUrl0
+
+    console.log(image)
     
     message.body(`Welcome to Quokkabot!`)
 
