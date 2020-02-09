@@ -4,6 +4,7 @@ const fs = require('fs'),
 PredictionApi = require('@azure/cognitiveservices-customvision-prediction'),
 key = process.env.API_KEY,
 endpoint = process.env.ENDPOINT,
+projectId = process.env.PROJECT_ID,
 publishIterationName = process.env.ITERATION,
 predictor = new PredictionApi.PredictionAPIClient(key, endpoint)
 
