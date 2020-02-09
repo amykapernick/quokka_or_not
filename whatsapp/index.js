@@ -1,7 +1,8 @@
 require('dotenv').config()
 
 const quokkaTest = require('../quokka-test'),
-customVision = quokkaTest.customVision
+customVision = quokkaTest.customVision,
+quokkaBot = require('../quokkabot')
 
 const whatsappReply = (outcome) => {
     let message,
@@ -26,12 +27,23 @@ module.exports = async function (context) {
     twiml = new MessagingResponse(),
     message = twiml.message(),
     body = qs.parse(context.req.body),
+    text = body.Body,
     image = body.NumMedia && body.MediaUrl0
 
-    const results = await customVision(image),
-    reply = whatsappReply(results)
+    if(image) {
+        const results = await customVision(image),
+        reply = whatsappReply(results)
+        
+        message.body(reply)
+    }
+    else {
+        const results = quokkaBot.quokkaBot(text)
+
+        message.body(results.body)
+        message.media(results.media)
+    }
+
     
-    message.body(reply)
 
     res.set('content-type', 'text/xml')
 	res.end(message.toString())
