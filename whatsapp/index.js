@@ -6,18 +6,20 @@ quokkaBot = require('../quokkabot')
 
 const whatsappReply = (outcome) => {
     let message,
+    photo = photo = Math.floor(Math.random() * 12),
     quokka = `${(outcome[1] * 100).toFixed(2)}%`,
         notQuokka = `${(outcome[0] * 100).toFixed(2)}%`
         
     if (outcome[0] > outcome[1]) {
         message = `Sorry, doesn't look like that's a quokka 😢
-        \nQuokka: ${quokka}, Not Quokka: ${notQuokka}`
+        \nQuokka: ${quokka}, Not Quokka: ${notQuokka}
+        \nThat's pretty sad though, so here's a quokka`
     } else {
         message = `Yep, that looks like a quokka!
         \nQuokka: ${quokka}, Not Quokka: ${notQuokka}`
     }
 
-    return message
+    return {message: message, photo: photo}
 }
 
 module.exports = async function (context) {
@@ -34,7 +36,11 @@ module.exports = async function (context) {
         const results = await customVision(image),
         reply = whatsappReply(results)
         
-        message.body(reply)
+        message.body(reply.message)
+
+        if(reply.photo) {
+            message.media(`https://quokkas.amyskapers.dev/img/quokka_(${photo}).jpg`)
+        }
     }
     else {
         const results = quokkaBot.quokkaBot(text)
