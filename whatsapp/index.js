@@ -29,9 +29,9 @@ module.exports = async function (context) {
     image = body.NumMedia && body.MediaUrl0
 
     const results = await customVision(image),
-    message = await whatsappReply(results)
+    reply = await whatsappReply(results)
     
-    message.body(message)
+    message.body(reply)
 
     res.set('content-type', 'text/xml')
 	res.end(message.toString())
