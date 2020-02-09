@@ -2,7 +2,7 @@ require('dotenv').config()
 
 module.exports = async function (context) {
     const res = context.res,
-    qs = require('query-string'),
+    qs = require('querystring'),
     MessagingResponse = require('twilio').twiml.MessagingResponse,
     twiml = new MessagingResponse(),
     message = twiml.message(),
