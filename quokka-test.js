@@ -24,8 +24,6 @@ const quokkaTest = (results) => {
 		} else if (tag.tagName == 'Quokka') {
 			outcome[1] = `${(tag.probability * 100).toFixed(2)}%`
 		}
-
-		outcome[index] = `${(tag.probability * 100).toFixed(2)}%`
 	})
 
 	return outcome
