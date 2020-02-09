@@ -14,7 +14,7 @@ module.exports = async function (context) {
     
     message.body(
         `Welcome to Quokkabot!\n
-        ${body}`
+        ${body.MediaUrl0}`
     )
 
     res.set('content-type', 'text/xml')
