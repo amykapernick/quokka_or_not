@@ -19,7 +19,11 @@ const quokkaTest = (results) => {
 	let outcome = []
 
 	results.predictions.forEach(tag => {
-		const index = tag.TagName == 'Quokka' ? 1 : 0
+		if (tag.tagName == 'Negative') {
+			outcome[0] = `${(tag.probability * 100).toFixed(2)}%`
+		} else if (tag.tagName == 'Quokka') {
+			outcome[1] = `${(tag.probability * 100).toFixed(2)}%`
+		}
 
 		outcome[index] = `${(tag.probability * 100).toFixed(2)}%`
 	})
