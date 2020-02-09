@@ -39,7 +39,7 @@ module.exports = async function (context) {
         message.body(reply.message)
 
         if(reply.photo) {
-            message.media(`https://quokkas.amyskapers.dev/img/quokka_(${photo}).jpg`)
+            message.media(`https://quokkas.amyskapers.dev/img/quokka_(${reply.photo}).jpg`)
         }
     }
     else {
