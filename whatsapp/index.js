@@ -6,11 +6,12 @@ module.exports = async function (context) {
     MessagingResponse = require('twilio').twiml.MessagingResponse,
     twiml = new MessagingResponse(),
     message = twiml.message(),
-    body = qs.parse(context.req.body)
+    body = qs.parse(context.req.body),
+    image = body.NumMedia && body.MediaUrl0
     
     message.body(
         `Welcome to Quokkabot!\n
-        ${body.MediaUrl0}`
+        ${image}`
     )
 
     res.set('content-type', 'text/xml')
