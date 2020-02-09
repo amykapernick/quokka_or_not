@@ -13,6 +13,8 @@ const quokkaBot = (text) => {
 	}
 
 	results.media = `https://quokkas.amyskapers.dev/img/quokka_(${photo}).jpg`
+
+	return results
 }
 
 module.exports = {
