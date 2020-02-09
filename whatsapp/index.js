@@ -7,10 +7,6 @@ module.exports = async function (context) {
     twiml = new MessagingResponse(),
     message = twiml.message(),
     body = qs.parse(context.req.body)
-    // image = body.MediaUrl0
-
-    context.log(body)
-    context.log(body.MediaUrl0)
     
     message.body(
         `Welcome to Quokkabot!\n
