@@ -11,6 +11,6 @@ const customVision = async (image) => {
 	return (results = await predictor.classifyImageUrl(projectId, publishIterationName, { url: image })) 
 }
 
-modules.exports = {
+module.exports = {
 	customVision
 }
