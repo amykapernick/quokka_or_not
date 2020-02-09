@@ -4,11 +4,10 @@ module.exports = async function (context) {
     const res = context.res,
     MessagingResponse = require('twilio').twiml.MessagingResponse,
     twiml = new MessagingResponse(),
-    message = twiml.message(),
-    image = context.req.body.MediaUrl0
+    message = twiml.message()
 
-    context.log(image)
     context.log(context.req.body)
+    context.log(context.req.body.Body)
     
     message.body(
         `Welcome to Quokkabot!\n
