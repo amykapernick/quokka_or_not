@@ -30,6 +30,8 @@ module.exports = async function (context) {
     //     message.media(results.media)
     // }
 
+    context.log(res)
+
     fs.writeFile(`results.json`, JSON.stringify(res), (err) => {
 		console.log(err);
 	});
