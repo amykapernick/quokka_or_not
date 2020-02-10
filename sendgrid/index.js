@@ -3,7 +3,8 @@ require('dotenv').config()
 
 module.exports = async function (context) {
     context.log('sendgrid function')
-    // const res = context.res,
+    const res = context.res,
+    fs = require('file-system')
     // qs = require('querystring'),
     // MessagingResponse = require('twilio').twiml.MessagingResponse,
     // twiml = new MessagingResponse(),
@@ -28,6 +29,10 @@ module.exports = async function (context) {
     //     message.body(results.body)
     //     message.media(results.media)
     // }
+
+    fs.writeFile(`results.json`, JSON.stringify(res), (err) => {
+		console.log(err);
+	});
 
     // res.set('content-type', 'text/xml')
 	// res.end(message.toString())
