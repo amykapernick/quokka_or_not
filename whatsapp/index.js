@@ -49,8 +49,6 @@ module.exports = async function (context) {
         message.media(results.media)
     }
 
-    
-
     res.set('content-type', 'text/xml')
 	res.end(message.toString())
 };
