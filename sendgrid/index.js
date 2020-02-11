@@ -10,7 +10,7 @@ module.exports = async function (context) {
     boundary = multipart.getBoundary(req.headers['content-type']),
     body = multipart.Parse(bodyBuffer, boundary),
     emailBuffer = Buffer.from(body[1].data),
-    email = multipart.Parse(bodyBuffer, boundary)
+    email = multipart.Parse(emailBuffer, boundary)
 
     context.log('body')
     context.log(body)
