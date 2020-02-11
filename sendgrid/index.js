@@ -11,6 +11,7 @@ module.exports = async function (context) {
     body = multipart.Parse(bodyBuffer, boundary)
 
     context.log('body')
-    context.log(body)  
+    context.log(body) 
+    context.log(body[1].email) 
 };
 
