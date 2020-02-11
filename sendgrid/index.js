@@ -5,6 +5,7 @@ module.exports = async function (context) {
     context.log('sendgrid function')
     const req = context.req,
     multipart - require('parse-multipart'),
+    bodyBuffer = Buffer.from(req.body)
     // fs = require('file-system')
     // qs = require('querystring'),
     // MessagingResponse = require('twilio').twiml.MessagingResponse,
@@ -12,7 +13,9 @@ module.exports = async function (context) {
     // message = twiml.message(),
     // body = qs.parse(context.req.body)
     // boundary = ,
-    body = multipart.Parse(body)
+    boundary = multipart.getBoundary(req.headers['content-type']),
+    body = multipart.Parse(bodyBuffer, boundary)
+    // body = multipart.Parse(body)
     // text = body.Body,
     // image = body.NumMedia && body.MediaUrl0
 

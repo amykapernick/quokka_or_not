@@ -4,6 +4,7 @@
       "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
+      "dataType": "binary",
       "name": "req",
       "methods": [
         "post"
