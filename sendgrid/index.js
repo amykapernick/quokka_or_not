@@ -8,10 +8,15 @@ module.exports = async function (context) {
     multipart = require('../parse-multipart/multipart.js'),
     bodyBuffer = Buffer.from(req.body),
     boundary = multipart.getBoundary(req.headers['content-type']),
-    body = multipart.Parse(bodyBuffer, boundary)
+    body = multipart.Parse(bodyBuffer, boundary),
+    emailBuffer = Buffer.from(body[1].data),
+    email = multipart.Parse(bodyBuffer, boundary)
 
     context.log('body')
     context.log(body)
+    context.log('email')
+    context.log(email)
+    
 
 };
 
