@@ -3,41 +3,34 @@ require('dotenv').config()
 
 module.exports = async function (context) {
     const req = context.req,
-    multipart = require('parse-multipart-data'),
-    bodyBuffer = Buffer.from(req.body),
-    // fs = require('file-system')
-    // qs = require('querystring'),
-    // MessagingResponse = require('twilio').twiml.MessagingResponse,
-    // twiml = new MessagingResponse(),
-    // message = twiml.message(),
-    // body = qs.parse(context.req.body)
-    // boundary = ,
-    boundary = multipart.getBoundary(req.headers['content-type']),
-    body = multipart.Parse(bodyBuffer, boundary)
-    // body = multipart.Parse(body)
-    // text = body.Body,
-    // image = body.NumMedia && body.MediaUrl0
+    fs = require('file-system'),
+    multer = require('multer'),
+    streams = require('memory-stream')
 
-    // if(image) {
-    //     const results = await customVision(image),
-    //     reply = whatsappReply(results)
-        
-    //     message.body(reply.message)
+    context.log('JavaScript HTTP trigger function processed a request.');
+    context.log('****************** context start');
 
-    //     if(reply.photo) {
-    //         message.media(`https://quokkas.amyskapers.dev/img/quokka_(${reply.photo}).jpg`)
-    //     }
-    // }
-    // else {
-    //     const results = quokkaBot.quokkaBot(text)
+    context.log(context);
 
-    //     message.body(results.body)
-    //     message.media(results.media)
-    // }
+    var stream = new streams.ReadableStream(req.body); 
+    for (const key in req) {
+        if (req.hasOwnProperty(key)) {
+            stream[key] = req[key];
+        }
+    }
+    context.stream = stream;
 
-    context.log(body)
+    context.log('****************** start');
+    const next = (err) => {
+        fs.writeFileSync(path.join(__dirname, "../test.png"), context.stream.files[0].buffer);
+        context.log('****************** end');
 
-    // res.set('content-type', 'text/xml')
-	// res.end(message.toString())
+        context.res = {
+            // status: 200, /* Defaults to 200 */
+            body: "Hello " + (req.query.name || req.body.name)
+        };
+
+        context.done();
+    };
 };
 
