@@ -2,10 +2,9 @@ require('dotenv').config()
 
 
 module.exports = async function (context) {
-    context.log('sendgrid function')
     const req = context.req,
-    multipart - require('parse-multipart'),
-    bodyBuffer = Buffer.from(req.body)
+    multipart = require('parse-multipart'),
+    bodyBuffer = Buffer.from(req.body),
     // fs = require('file-system')
     // qs = require('querystring'),
     // MessagingResponse = require('twilio').twiml.MessagingResponse,
