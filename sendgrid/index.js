@@ -2,23 +2,43 @@ require('dotenv').config()
 
 
 module.exports = async function (context) {
+    context.log('sendgrid function')
     const req = context.req,
-    fs = require('file-system'),
-    multer = require('multer'),
-    streams = require('memory-stream')
+    multipart = require('../parse-multipart/multipart.js'),
+    bodyBuffer = Buffer.from(req.body),
+    // fs = require('file-system')
+    // qs = require('querystring'),
+    // MessagingResponse = require('twilio').twiml.MessagingResponse,
+    // twiml = new MessagingResponse(),
+    // message = twiml.message(),
+    // body = qs.parse(context.req.body)
+    // boundary = ,
+    boundary = multipart.getBoundary(req.headers['content-type']),
+    body = multipart.Parse(bodyBuffer, boundary)
+    // body = multipart.Parse(body)
+    // text = body.Body,
+    // image = body.NumMedia && body.MediaUrl0
 
-    context.log('JavaScript HTTP trigger function processed a request.');
-    context.log('****************** context start');
+    // if(image) {
+    //     const results = await customVision(image),
+    //     reply = whatsappReply(results)
+        
+    //     message.body(reply.message)
 
-    context.log(context);
+    //     if(reply.photo) {
+    //         message.media(`https://quokkas.amyskapers.dev/img/quokka_(${reply.photo}).jpg`)
+    //     }
+    // }
+    // else {
+    //     const results = quokkaBot.quokkaBot(text)
 
-    var stream = new streams.ReadableStream(req.body); 
-    for (const key in req) {
-        if (req.hasOwnProperty(key)) {
-            stream[key] = req[key];
-        }
-    }
+    //     message.body(results.body)
+    //     message.media(results.media)
+    // }
 
-    context.log(stream)
+    context.log(body)
+
+    // res.set('content-type', 'text/xml')
+	// res.end(message.toString())
 };
 
