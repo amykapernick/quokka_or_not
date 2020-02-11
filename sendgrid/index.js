@@ -12,6 +12,6 @@ module.exports = async function (context) {
 
     context.log('body')
     context.log(body) 
-    context.log(body[1].email) 
+    context.log(body[1].data) 
 };
 
