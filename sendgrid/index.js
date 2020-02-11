@@ -12,6 +12,12 @@ module.exports = async function (context) {
 
     context.log('body')
     context.log(body) 
-    context.log(body[1].data) 
+
+    body.forEach(opt => {
+        if(opt.name == 'email') {
+            context.log(opt.data)
+        }
+    })
+
 };
 
