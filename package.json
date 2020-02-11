@@ -24,6 +24,8 @@
     "express": "^4.17.1",
     "file-system": "^2.2.2",
     "nodemon": "^2.0.2",
+    "parse-multipart": "^1.0.4",
+    "parse-multipart-data": "^1.0.0",
     "querystring": "^0.2.0",
     "twilio": "^3.39.4"
   }
