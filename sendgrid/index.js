@@ -3,13 +3,13 @@ require('dotenv').config()
 
 module.exports = async function (context) {
     context.log('sendgrid function')
-    // const res = context.res
+    const req = context.req
     // fs = require('file-system')
     // qs = require('querystring'),
     // MessagingResponse = require('twilio').twiml.MessagingResponse,
     // twiml = new MessagingResponse(),
     // message = twiml.message(),
-    // body = qs.parse(context.req.body),
+    body = qs.parse(context.req.body),
     // text = body.Body,
     // image = body.NumMedia && body.MediaUrl0
 
@@ -30,7 +30,7 @@ module.exports = async function (context) {
     //     message.media(results.media)
     // }
 
-    context.log(context.req)
+    context.log(body)
 
     // res.set('content-type', 'text/xml')
 	// res.end(message.toString())
