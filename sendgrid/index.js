@@ -3,7 +3,7 @@ require('dotenv').config()
 
 module.exports = async function (context) {
     const req = context.req,
-    multipart = require('parse-multipart'),
+    multipart = require('parse-multipart-data'),
     bodyBuffer = Buffer.from(req.body),
     // fs = require('file-system')
     // qs = require('querystring'),
