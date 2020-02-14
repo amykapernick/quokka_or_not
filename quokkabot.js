@@ -18,24 +18,24 @@ const message = (text) => {
 }
 
 const email = (text) => {
-	let results = {},
+	let response,
 	photo = Math.floor(Math.random() * 12)
 
 	if(RegExp('quokka', 'i').test(text)) {
-		results.body = `<p>This is a quokka</p>`
+		response = `<p>This is a quokka</p>
+		<p><img src="https://quokkas.amyskapers.dev/img/quokka_(${photo}).jpg" /></p>`
 	}
 	else {
-		results.body = `
+		response = `
 			<p>Welcome to Quokkabot!</p>
 			<p>I can do a bunch of different things that have to do with quokkas.</p>
 			<p>Need a picture of a quokka? Just ask me</p>
 			<p>Not sure if you've seen a quokka? Send me a picture and I'll tell you if there's a quokka in it</p>
+			<p><img src="https://quokkas.amyskapers.dev/img/quokka_(${photo}).jpg" /></p>
 		`
 	}
 
-	results.media = `https://quokkas.amyskapers.dev/img/quokka_(${photo}).jpg`
-
-	return results
+	return response
 }
 
 module.exports = {

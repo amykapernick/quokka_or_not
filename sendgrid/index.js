@@ -2,8 +2,7 @@ require('dotenv').config()
 
 const quokkaTest = require('../quokka-test'),
 customVision = quokkaTest.customVisionBinary,
-quokkabot = require('../quokkabot'),
-sendgrid = require('../sendgrid')
+quokkabot = require('../quokkabot')
 
 const emailReply = (outcome) => {
     let message,
@@ -12,12 +11,13 @@ const emailReply = (outcome) => {
         notQuokka = `${(outcome[0] * 100).toFixed(2)}%`
         
     if (outcome[0] > outcome[1]) {
-        message = `Sorry, doesn't look like that's a quokka 😢
-        \nQuokka: ${quokka}, Not Quokka: ${notQuokka}
-        \nThat's pretty sad though, so here's a quokka`
+        message = `<p>Sorry, doesn't look like that's a quokka 😢</p>
+        <dl><dt>Quokka:</dt> <dd>${quokka}</dd> <dt>Not Quokka:</dt> <dd>${notQuokka}</dd></dl>
+        <p>That's pretty sad though, so here's a quokka</p>
+        <p><img src="https://quokkas.amyskapers.dev/img/quokka_(${photo}).jpg" /></p>`
     } else {
-        message = `Yep, that looks like a quokka!
-        \nQuokka: ${quokka}, Not Quokka: ${notQuokka}`
+        message = `<p>Yep, that looks like a quokka!</p>
+        <dl><dt>Quokka:</dt> <dd>${quokka}</dd> <dt>Not Quokka:</dt> <dd>${notQuokka}</dd></dl>`
     }
 
     return message
@@ -34,8 +34,6 @@ module.exports = async function (context) {
     let body = {},
     image,
     reply = {}
-
-    
     
     multipart.Parse(bodyBuffer, boundary).forEach(o => {
         if(o.name) {
@@ -51,16 +49,17 @@ module.exports = async function (context) {
     })
 
     const email = body.from,
-    message = body.text,
-    results = await customVision(image)
+    message = body.text
 
-    reply.html = emailReply(results)
+    if(image) {
+        const results = await customVision(image)
 
-    context.log(reply.html)
+        reply.html = emailReply(results)
+    }
+    else {
+        reply.html = quokkabot.email(message)
+    }
 
-    fs.writeFile(`image.jpg`, image);
-
-    context.log(reply.html)
 
     const msg = {  
         to: email,
