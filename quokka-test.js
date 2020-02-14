@@ -15,6 +15,13 @@ const customVision = async (image) => {
 	return outcome
 }
 
+const customVisionBinary = async (image) => {
+	const results = await predictor.classifyImage(projectId, publishIterationName, image),
+	outcome = quokkaTest(results)
+
+	return outcome
+}
+
 const quokkaTest = (results) => {
 	let outcome = []
 
@@ -30,5 +37,6 @@ const quokkaTest = (results) => {
 }
 
 module.exports = {
-	customVision
+	customVision,
+	customVisionBinary
 }

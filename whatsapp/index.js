@@ -43,7 +43,7 @@ module.exports = async function (context) {
         }
     }
     else {
-        const results = quokkaBot.quokkaBot(text)
+        const results = quokkaBot.message(text)
 
         message.body(results.body)
         message.media(results.media)
@@ -52,4 +52,3 @@ module.exports = async function (context) {
     res.set('content-type', 'text/xml')
 	res.end(message.toString())
 };
-

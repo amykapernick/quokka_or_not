@@ -1,0 +1,89 @@
+--xYzZY
+Content-Disposition: form-data; name="headers"
+
+Received: by mx0059p1mdw1.sendgrid.net with SMTP id EMINPdfs5f Tue, 11 Feb 2020 22:39:43 +0000 (UTC)
+Received: from AUS01-SY3-obe.outbound.protection.outlook.com (mail-eopbgr1370138.outbound.protection.outlook.com [40.107.137.138]) by mx0059p1mdw1.sendgrid.net (Postfix) with ESMTPS id B4656861732 for <quokkas@amyskapers.dev>; Tue, 11 Feb 2020 22:39:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none; b=d9P0Ph99tuMmgafTMh7uCH7rWTRduUFZ404Rp+BejoQ/DuvexdNQpTsmHTR+6c9vEKs2y4DumL6+W3C7nmggApCNzgk21x3aqiij074HeI8P2BG6b334p7C067RR62uMPRwPgEKARiD3Hn5YiAjduDNoJeNrUDQSdKAnHTqiJ9Gsyyr5PtQWUi1Q377yj69bUcP//+fU1RObANT4NR/wNt2ICXOjnSKBLp9CvqgcRGwtal0FA6GNa4SxTO98rV3xnorvVvwf5xUVNSYxXv9lO5hxptPaPedrZ0qdNu9zsc9HgunYDaBezSeSLG0qowrhJ1YNt+cDPiTueZmZWjJ7lA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; s=arcselector9901; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck; bh=wVxhRtDMJBr+AGEShNYJjqbZCJCo7EQTClRNGet8UDo=; b=AJ2gQH7uvnGHC/+X1PASKa+XVYtDc/fhBYGtvZ30QLaXnookM9wHKHGY2TaejriZGzNucWyDB1dLcjG1z3KLZ/RQJ15Nv4sOONLfyzIqV8zFADqgR97fGuTq6bJAcWXgsgKazwqNGrSjPCdQRm9qFl+r47tEKhZv/TnIT5vYAxKB1qnuGqEwVv1lBV4fump0sqARyH8pYLJ0noQv0aEykaHyjlsIuEqINHzZ7Lv4XRzl7PWYmUFRIsb3WcBAOT7n7bOKHcU+QSLJ6XpkCnKY975NWX1aI8qJal7rvZYaiRgupCTHvIJcYmb/CVqOof1v6cr28zNnNP4y79/zfzL7ww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass smtp.mailfrom=aimhigherweb.design; dmarc=pass action=none header.from=aimhigherweb.design; dkim=pass header.d=aimhigherweb.design; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aimhigherwebdesign.onmicrosoft.com; s=selector2-aimhigherwebdesign-onmicrosoft-com; h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck; bh=wVxhRtDMJBr+AGEShNYJjqbZCJCo7EQTClRNGet8UDo=; b=FzOeFKxFtgauTWyW2uoUGIizAkyWuapTTJQ+TleXFm+7jUlXMAW/7ph8TBZN5JrtJWfoh4GWGbnErvQkwnwQC+0odUbSTSWc6MwQMGxVG1n7Bvgp4VIvAos8H6wG4f9vW0W3gXhTxNGkZX26gLfDg0Yk6nQLty4m3Mz4SAOfQPM=
+Received: from MEAPR01MB4038.ausprd01.prod.outlook.com (52.134.217.213) by MEAPR01MB2886.ausprd01.prod.outlook.com (52.134.197.147) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2707.24; Tue, 11 Feb 2020 22:39:38 +0000
+Received: from MEAPR01MB4038.ausprd01.prod.outlook.com ([fe80::bc8b:4c0a:5620:b886]) by MEAPR01MB4038.ausprd01.prod.outlook.com ([fe80::bc8b:4c0a:5620:b886%4]) with mapi id 15.20.2707.030; Tue, 11 Feb 2020 22:39:37 +0000
+From: Amy Kapernick <amy@aimhigherweb.design>
+To: "quokkas@amyskapers.dev" <quokkas@amyskapers.dev>
+Subject: Test email save
+Thread-Topic: Test email save
+Thread-Index: AQHV4Swh3hsj2YdArUaBX5Xjd2gXUA==
+Date: Tue, 11 Feb 2020 22:39:37 +0000
+Message-ID: <MEAPR01MB40387A73BDE5866946F68602BF180@MEAPR01MB4038.ausprd01.prod.outlook.com>
+Accept-Language: en-AU, en-US
+Content-Language: en-AU
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+authentication-results: spf=none (sender IP is ) smtp.mailfrom=amy@aimhigherweb.design; 
+x-originating-ip: [45.248.142.50]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: d3b5f44d-6c1a-4460-c82c-08d7af4346a3
+x-ms-traffictypediagnostic: MEAPR01MB2886:
+x-microsoft-antispam-prvs: <MEAPR01MB2886B83BCE01E960E1AC0545BF180@MEAPR01MB2886.ausprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1728;
+x-forefront-prvs: 0310C78181
+x-forefront-antispam-report: SFV:NSPM;SFS:(10019020)(136003)(376002)(346002)(366004)(396003)(39830400003)(199004)(189003)(5660300002)(52536014)(8936002)(3480700007)(55016002)(81166006)(508600001)(8676002)(81156014)(64756008)(6916009)(558084003)(9686003)(4270600006)(19627405001)(66616009)(66476007)(66556008)(86362001)(66446008)(2906002)(6506007)(33656002)(186003)(71200400001)(66946007)(316002)(7116003)(26005)(76116006)(7696005)(46492004);DIR:OUT;SFP:1102;SCL:1;SRVR:MEAPR01MB2886;H:MEAPR01MB4038.ausprd01.prod.outlook.com;FPR:;SPF:None;LANG:en;PTR:InfoNoRecords;A:1;MX:1;
+received-spf: None (protection.outlook.com: aimhigherweb.design does not designate permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: TPkpm27XCajAIVFgBANNoxNZc9b7bq95qw/E1duHPWd+t3FgVatKsX0r1qiRxibThinb8HNxFxXxa//51Bn6tqNrSlyvUdbf5j4miFC976BuN/kj38yCgAfkV+WLPuQj/NjMV1E56JArWPFsEOBIWlDliaJSIFT7Hi9Tc5CDcIDBXyYxMdrQm6RykMNY9lpkvjw9W/cva/f1RiI1Q6M+BtavVgXyF0Z74WQ9f5kcblNh0r5f37Zhnnmj1X4heg4YERKMtdCcVOOxw4I5iqKyJdKxdJK31qr7PwxDs10p+arib23aKlad30qRqOfmdUP9MmOAM3BSx/yQCJSp4/H9fElk9oQvJ1XqBhwlBBGaCvw=
+x-ms-exchange-antispam-messagedata: cD+WFH0/UA2gEtGDvsPzRPyifzg8x5YnqfnUe0Qkq9rCHNAdC3a7FJp8Nu+hunEpjG27nAaRGV1D3re4Obn8DgWI3lAD3m/pamiXQ4jV14Nqtw9kVaxHwYjTWSrGy+jYXubPKuoswS467EIQyZKIXQ==
+x-ms-exchange-transport-forked: True
+Content-Type: multipart/mixed; boundary="_004_MEAPR01MB40387A73BDE5866946F68602BF180MEAPR01MB4038ausp_"
+MIME-Version: 1.0
+X-OriginatorOrg: aimhigherweb.design
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3b5f44d-6c1a-4460-c82c-08d7af4346a3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2020 22:39:37.8573 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 6876f602-444e-4965-9aae-b634b9ce77be
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LrrfMkP/DrHh6iwv/Yidvmz1w8yu93kQMo+PFDqUJtXPPdzMMY5IvWsu62hogE6YGApPE/9BEwo42/9qXoKUpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MEAPR01MB2886
+
+--xYzZY
+Content-Disposition: form-data; name="dkim"
+
+{@aimhigherwebdesign.onmicrosoft.com : pass}
+--xYzZY
+Content-Disposition: form-data; name="to"
+
+"quokkas@amyskapers.dev" <quokkas@amyskapers.dev>
+--xYzZY
+Content-Disposition: form-data; name="html"
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
+</head>
+<body dir="ltr">
+<div style="font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+Test save<br>
+</div>
+</body>
+</html>
+
+--xYzZY
+Content-Disposition: form-data; name="from"
+
+Amy Kapernick <amy@aimhigherweb.design>
+--xYzZY
+Content-Disposition: form-data; name="text"
+
+Test save
+
+--xYzZY
+Content-Disposition: form-data; name="sender_ip"
+
+40.107.137.138
+--xYzZY
+Content-Disposition: form-data; name="attachment1"; filename="quokka_%283%29.jpg"
+Content-Type: image/jpeg
+
+����
