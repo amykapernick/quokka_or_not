@@ -50,5 +50,5 @@ module.exports = async function (context) {
     }
 
     res.set('content-type', 'text/xml')
-	res.end(message.toString())
+    res.end(message.toString())
 };
