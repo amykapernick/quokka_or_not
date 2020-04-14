@@ -8,7 +8,28 @@ iteration = process.env.ITERATION,
 predictor = new PredictionApi.PredictionAPIClient(key, endpoint)
 
 const customVision = async (image) => {
-	return results = await predictor.classifyImageUrl(projectId, iteration, {url: image})
+	const results = await predictor.classifyImageUrl(projectId, iteration, {url: image}),
+	outcome = quokkaTest(results)
+
+	return outcome
+}
+
+const quokkaTest = (results) => {
+	let outcome = {
+		negative: null,
+		quokka: null
+	}
+
+	results.predictions.forEach(tag => {
+		if(tag.tagName == 'Negative') {
+			outcome.negative = tag.probability
+		}
+		else if (tag.tagName == 'Quokka') {
+			outcome.quokka = tag.probability
+		}
+	})
+
+	return outcome
 }
 
 module.exports = {
