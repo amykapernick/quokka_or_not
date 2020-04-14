@@ -2,7 +2,11 @@ const message = (text) => {
 	let results = {},
 	photo = Math.floor(Math.random() * 12)
 
-	if(RegExp('quokka', 'i').test(text)) {
+	if(RegExp(/error|issue|wrong/, 'i').test(text)) {
+		results.body = `Thanks for reporting your issue, here's a picture of a quokka`
+		results.error = true
+	}
+	else if(RegExp('quokka', 'i').test(text)) {
 		results.body = 'This is a quokka'
 	}
 	else {

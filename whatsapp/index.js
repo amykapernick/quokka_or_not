@@ -24,6 +24,7 @@ module.exports = async function (context, req) {
     const res = context.res,
     qs = require('querystring'),
     MessagingResponse = require('twilio').twiml.MessagingResponse,
+    client = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN),
     twiml = new MessagingResponse(),
     message = twiml.message(),
     body = qs.parse(context.req.body),
@@ -41,6 +42,14 @@ module.exports = async function (context, req) {
 
         message.body(results.body)
         message.media(results.media)
+
+        if(results.error) {
+            client.messages.create({
+                from: 'whatsapp:+61488845130',
+                body: `A new error has been lodged ⚠\n${text}`,
+                to: `whatsapp:${process.env.MOBILE}`
+            })
+        }
     }
 
     
