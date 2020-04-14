@@ -1,0 +1,73 @@
+require('dotenv').config()
+
+const customVision = require('../quokka-test').customVisionBinary
+
+const emailReply = (outcome) => {
+    let message,
+        photo = Math.floor(Math.random() * 12),
+        quokka = `${(outcome.quokka * 100).toFixed(2)}%`,
+        notQuokka = `${(outcome.negative * 100).toFixed(2)}%`
+
+        if(outcome.quokka > outcome.negative) {
+            message = `<p>Yep, that looks like a quokka!</p>
+                <dl>
+                    <dt>Quokka:</dt><dd>${quokka}</dd>
+                    <dt>Not Quokka:</dt><dd>${notQuokka}</dd>
+                </dl>`
+        }
+        else {
+            message = `<p>Sorry, that doesn't look like that's a quokka 😢</p>
+                <dl>
+                    <dt>Quokka:</dt><dd>${quokka}</dd>
+                    <dt>Not Quokka:</dt><dd>${notQuokka}</dd>
+                </dl>
+                <p>That's pretty sad though, so here's a quokka!</p>
+                <p><img src="https://quokkas.amyskapers.dev/img/quokka(${photo}).jpg"/></p>`
+        }
+
+        return message
+}
+
+module.exports = async function (context, req) {
+    const multipart = require('../parse-multipart/multipart'),
+    bodyBuffer = Buffer.from(req.body),
+    boundary = multipart.getBoundary(req.headers['content-type']),
+    sgMail = require('@sendgrid/mail')
+
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
+    let body = {},
+    image,
+    reply = {}
+
+    multipart.Parse(bodyBuffer, boundary).forEach(o => {
+        if(o.name) {
+            body[o.name] = o.data
+        }
+        else if(o.filename) {
+            body.filename = o.data
+        }
+
+        if(o.filename) {
+            image = o.data
+        }
+    })
+
+    if(image) {
+        const results = await customVision(image)
+
+        reply.html = emailReply(results)
+    }
+
+    await sgMail.send({
+        to: body.from,
+        from: {
+            name: 'Quokkabot',
+            email: 'quokkas@amyskapers.dev',
+        },
+        html: reply.html,
+        subject: `Re: ${body.subject}`
+    })
+
+    
+};
