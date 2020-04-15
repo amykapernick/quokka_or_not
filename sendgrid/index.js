@@ -23,7 +23,7 @@ const emailReply = (outcome) => {
                     <dt>Not Quokka:</dt><dd>${notQuokka}</dd>
                 </dl>
                 <p>That's pretty sad though, so here's a quokka!</p>
-                <p><img src="https://quokkas.amyskapers.dev/img/quokka(${photo}).jpg"/></p>`
+                <p><img src="https://quokkas.amyskapers.dev/img/quokka_(${photo}).jpg"/></p>`
         }
 
         return message
