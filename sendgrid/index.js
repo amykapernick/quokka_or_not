@@ -1,6 +1,7 @@
 require('dotenv').config()
 
-const customVision = require('../quokka-test').customVisionBinary
+const customVision = require('../quokka-test').customVisionBinary,
+quokkabot = require('../quokkabot').email
 
 const emailReply = (outcome) => {
     let message,
@@ -53,21 +54,36 @@ module.exports = async function (context, req) {
         }
     })
 
-    if(image) {
-        const results = await customVision(image)
-
-        reply.html = emailReply(results)
-    }
-
-    await sgMail.send({
+    let msg = {
         to: body.from,
         from: {
             name: 'Quokkabot',
             email: 'quokkas@amyskapers.dev',
         },
-        html: reply.html,
         subject: `Re: ${body.subject}`
-    })
+    }
+
+    context.log(body)
+
+    if(image) {
+        const results = await customVision(image)
+
+        msg.html = `${emailReply(results)}<hr/>${body.text}`
+    }
+    else {    
+        const results = quokkabot(body.text)
+
+        msg.html = `${results.body}<hr/>${body.text}`
+
+        if(results.error) {
+            msg.bcc = {
+                name: 'Quokkabot',
+                email: 'quokkabot@kapers.dev'
+            }
+        }
+    }
+
+    await sgMail.send(msg)
 
     
 };
