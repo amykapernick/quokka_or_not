@@ -33,7 +33,13 @@ module.exports = async function (context, req) {
     const multipart = require('../parse-multipart/multipart'),
     bodyBuffer = Buffer.from(req.body),
     boundary = multipart.getBoundary(req.headers['content-type']),
-    sgMail = require('@sendgrid/mail')
+    sgMail = require('@sendgrid/mail'),
+    client = require('twilio')(
+        process.env.TWILIO_API_KEY,
+        process.env.TWILIO_API_SECRET,
+        {accountSid: process.env.ACCOUNT_SID}
+    ),
+    service = client.sync.services(process.env.TWILIO_SYNC_SERVICE_SID)
 
     sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
@@ -63,12 +69,17 @@ module.exports = async function (context, req) {
         subject: `Re: ${body.subject}`
     }
 
-    context.log(body)
-
     if(image) {
         const results = await customVision(image)
 
         msg.html = `${emailReply(results)}<hr/>${body.text}`
+
+        service.syncLists('pastResults').syncListItems.create({
+            data: {
+                image: image,
+                results: results
+            }
+        }).catch(console.error)
     }
     else {    
         const results = quokkabot(body.text)
@@ -81,6 +92,12 @@ module.exports = async function (context, req) {
                 email: 'quokkabot@kapers.dev'
             }
         }
+
+        // service.documents('image').update({
+        //     data: {
+        //         image: results.media
+        //     }
+        // }).catch(console.error)
     }
 
     await sgMail.send(msg)

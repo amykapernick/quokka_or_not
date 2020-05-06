@@ -24,18 +24,32 @@ module.exports = async function (context, req) {
     const res = context.res,
     qs = require('querystring'),
     MessagingResponse = require('twilio').twiml.MessagingResponse,
-    client = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN),
+    client = require('twilio')(
+        process.env.TWILIO_API_KEY,
+        process.env.TWILIO_API_SECRET,
+        {accountSid: process.env.ACCOUNT_SID}
+    ),
     twiml = new MessagingResponse(),
     message = twiml.message(),
     body = qs.parse(context.req.body),
     text = body.Body,
-    image = body.NumMedia && body.MediaUrl0
+    image = body.NumMedia && body.MediaUrl0,
+    service = client.sync.services(process.env.TWILIO_SYNC_SERVICE_SID)
 
     if(image) {
         const results = await quokkaTest(image),
         reply = whatsappReply(results)
 
         message.body(reply)
+
+        // service.syncLists('pastResults').update({limit: 5}).catch(console.error)
+
+        service.syncLists('pastResults').syncListItems.create({
+            data: {
+                image: image,
+                results: results
+            }
+        }).catch(console.error)
     }
     else {
         const results = quokkaBot(text)
@@ -50,8 +64,14 @@ module.exports = async function (context, req) {
                 to: `whatsapp:${process.env.MOBILE}`
             })
         }
-    }
 
+        service.documents('image').update({
+            data: {
+                image: results.media
+            }
+        }).catch(console.error)
+    
+    }
     
 
     res.set('content-type', 'text/xml')
