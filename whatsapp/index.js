@@ -42,8 +42,6 @@ module.exports = async function (context, req) {
 
         message.body(reply)
 
-        // service.syncLists('pastResults').update({limit: 5}).catch(console.error)
-
         service.syncLists('pastResults').syncListItems.create({
             data: {
                 image: image,
