@@ -15,7 +15,7 @@ const message = (text) => {
 		\nNot sure if you've seen a quokka? Send me a picture and I'll tell you if there's a quokka in it`
 	}
 
-	results.media = `https://quokkas.amyskapers.dev/img/quokka_(${photo}).jpg` 
+	results.media = `https://amyskapers.dev/img/quokkas/quokka_(${photo}).jpg` 
 
 	return results
 }
@@ -37,7 +37,7 @@ const email = (text) => {
 		<p>Not sure if you've seen a quokka? Send me a picture and I'll tell you if there's a quokka in it</p>`
 	}
 
-	results.body = `${results.body}<p><img src="https://quokkas.amyskapers.dev/img/quokka_(${photo}).jpg"/></p>`
+	results.body = `${results.body}<p><img src="https://amyskapers.dev/img/quokkas/quokka_(${photo}).jpg"/></p>`
 
 	return results
 }
